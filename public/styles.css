@@ -1,0 +1,53 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.chatbox{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width:70vw;
+    margin:10px auto;
+    margin-bottom: 80px;
+    min-height: 10vh;
+    overflow:auto;
+}
+#reply{
+    width:60vw;
+    outline: none;
+    border-radius: 20px;
+    border:solid transparent;
+    height: 30px;
+}
+#buttonSend{
+    height: 34px;
+    border: solid transparent;
+    outline:none;
+    border-radius: 16px;
+}
+.wrap_input{
+    position:fixed;
+    width: 100vw;
+    padding: 10px;
+    bottom:0;
+    background-color:black;
+    text-align: center;
+   
+}
+.message{
+    padding:5px;
+    word-wrap: break-word;
+    max-width:80%;
+    clear: both;
+    background-color:grey;
+    font-size: 1.8vw;
+    color: white;
+    margin: top 3px;
+    margin-bottom:2px;
+    border-radius: 5px;
+}
+.recieved{
+    float:left;
+}
+.sent{
+    float:right;
+}

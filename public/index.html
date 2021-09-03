@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WinChat by Tech-X : A powerful chat app for you and your organisation">
+    <title>WinChat</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="Tech-X.png" type="image/x-icon">
+</head>
+
+<body>
+    <h1 style='text-align:center;background-color:black;color:white;top:0;position:sticky'>WinChat : Tech-X</h1>
+    <div id="chatbox" class="chatbox">
+    </div>
+    <form id="form" class="wrap_input">
+        <input placeholder="Type something here..." type="text" name="reply" id="reply" autocomplete="off">
+        <input id="buttonSend" type="submit" value="  ➤  ">
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        var audio=new Audio("messenger.mp3");
+        var name=prompt("Enter your name")
+        var chatbox=document.getElementById("chatbox")
+        var form = document.getElementById("form");
+        var replyInput = document.getElementById("reply");
+        const append=(message,position)=>{
+            var messageDIV=document.createElement("div");
+            messageDIV.classList.add("message");
+            messageDIV.classList.add(position);
+            messageDIV.innerHTML=message;
+            chatbox.appendChild(messageDIV);
+        }
+        socket.emit("user-connected",name)
+        socket.on("RecieveInput",(data)=>{
+        append(data,"recieved");
+        audio.play();
+        
+    })
+        socket.on("New-client-connected",(recieveUserJoined)=>{
+            append(recieveUserJoined,"recieved")
+        })
+        socket.on("user-disconnected",data=>{
+            append(data,"sent");
+        })
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (replyInput.value) {
+                append("You : "+replyInput.value,"sent")
+                socket.emit("InputMessage", replyInput.value);
+                replyInput.value = "";
+            }
+        }
+        )
+        
+
+    </script>
+</body>
+
+</html>
